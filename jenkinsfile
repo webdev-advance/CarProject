@@ -1,16 +1,17 @@
 pipeline {
     agent any
     
-    stage {
-        steps {
-            withMaven(maven: 'maven_3_5_0') {
-            	sh 'mvn clean package'                  
+    stages {
+        stage {
+        	steps {
+            	withMaven(maven: 'maven_3_5_0') {
+            		sh 'mvn clean package'                  
          	   }
            }
     }
-    stage {
-        steps{
-            withCredentials([[ $class		    :'UsernamePasswordMultiBinding',
+    	stage {
+        	steps {
+            	withCredentials([[ $class		    :'UsernamePasswordMultiBinding',
             			       credentailsId	:'PCF_LOGIN',
             				   usernameVariable:'USERNAME',
             				   passwordVariable:'PASSWORD']]) {
@@ -21,6 +22,8 @@ pipeline {
 
         }
 
+    }
+        
     }
 
     
